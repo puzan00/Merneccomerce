@@ -70,7 +70,7 @@ const listProducts = async (req, res) => {
 // Function for removing a product by ID
 const removeProduct = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { id } = req.body;  // FIXED: use req.body
     const product = await productModel.findByIdAndDelete(id);
     if (!product) {
       return res.status(404).json({ success: false, message: 'Product not found' });
@@ -82,10 +82,11 @@ const removeProduct = async (req, res) => {
   }
 };
 
+
 // Function for retrieving a single product by ID
 const singleProduct = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { id } = req.params; // now using params correctly
     const product = await productModel.findById(id);
     if (!product) {
       return res.status(404).json({ success: false, message: 'Product not found' });
