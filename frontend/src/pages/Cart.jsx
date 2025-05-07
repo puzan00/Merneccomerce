@@ -5,24 +5,27 @@ import { assets } from "../assets/assets";
 import CartTotal from "../components/CartTotal"; // ✅ Import CartTotal
 
 const Cart = () => {
-  const { products, currency, cartItems, updateQuantity ,navigate } = useContext(ShopContext);
+  const { products, currency, cartItems, updateQuantity, navigate } = useContext(ShopContext);
   const [cartData, setCartData] = useState([]);
 
   useEffect(() => {
-    const tempData = [];
-    for (const itemId in cartItems) {
-      for (const size in cartItems[itemId]) {
-        if (cartItems[itemId][size] > 0) {
-          tempData.push({
-            id: itemId,
-            size: size,
-            quantity: cartItems[itemId][size],
-          });
+    if (products.length > 0) {
+      const tempData = [];
+      for (const itemId in cartItems) {
+        for (const size in cartItems[itemId]) {
+          if (cartItems[itemId][size] > 0) {
+            tempData.push({
+              id: itemId,
+              size: size,
+              quantity: cartItems[itemId][size],
+            });
+          }
         }
       }
+      setCartData(tempData);
     }
-    setCartData(tempData);
-  }, [cartItems]);
+
+  }, [cartItems, products]);
 
   const handleQuantityChange = (id, size, value) => {
     const quantity = parseInt(value);
@@ -93,7 +96,7 @@ const Cart = () => {
             <CartTotal />
             <div className="text-right">
               <button onClick={() => navigate("/place-order")} className="mt-4 bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">
-               Proceed to Checkout
+                Proceed to Checkout
               </button>
             </div>
           </div>
