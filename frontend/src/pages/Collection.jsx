@@ -71,7 +71,7 @@ const Collection = () => {
     if (products && products.length > 0) {
       applyFilter();
     }
-  }, [category, subCategory, products, search, showSearch]); // Added search as dependency
+  }, [category, subCategory, products, search, showSearch, products]); // Added search as dependency
 
   // Add this state to your component
   const [sortType, setSortType] = useState("relevant");
@@ -113,9 +113,8 @@ const Collection = () => {
 
         {/* Category Filter */}
         <div
-          className={`border border-gray-300 pl-5 py-3 mt-6 transition-all duration-300 ${
-            showFilter ? "block" : "hidden"
-          }`}
+          className={`border border-gray-300 pl-5 py-3 mt-6 transition-all duration-300 ${showFilter ? "block" : "hidden"
+            }`}
         >
           <p className="mb-3 text-sm font-medium">CATEGORIES</p>
           <div className="flex flex-col gap-2 text-sm font-light text-gray-700">
@@ -151,9 +150,8 @@ const Collection = () => {
 
         {/* SubCategory Filter */}
         <div
-          className={`border border-gray-300 pl-5 py-3 mt-6 ${
-            showFilter ? "" : "hidden"
-          }`}
+          className={`border border-gray-300 pl-5 py-3 mt-6 ${showFilter ? "" : "hidden"
+            }`}
         >
           <p className="mb-3 text-sm font-medium">TYPE</p>
           <div className="flex flex-col gap-2 text-sm font-light text-gray-700">

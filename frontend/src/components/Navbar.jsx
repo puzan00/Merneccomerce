@@ -5,7 +5,15 @@ import { ShopContext } from "../context/ShopContext";
 
 const Navbar = () => {
   const [visible, setVisible] = useState(false);
-  const { setShowSearch, getCartCount } = useContext(ShopContext);
+  const { setShowSearch, getCartCount, navigate, token, setToken, setCartItems } = useContext(ShopContext);
+
+  const logout = () => {
+    navigate("/login");
+    localStorage.removeItem("token");
+    setToken("");
+    setCartItems({});
+
+  };
 
   const toggleMenu = () => {
     setVisible(!visible);
@@ -27,8 +35,7 @@ const Navbar = () => {
             <NavLink
               to="/"
               className={({ isActive }) =>
-                `text-gray-700 font-medium hover:text-blue-600 ${
-                  isActive ? "text-blue-600" : ""
+                `text-gray-700 font-medium hover:text-blue-600 ${isActive ? "text-blue-600" : ""
                 }`
               }
             >
@@ -42,8 +49,7 @@ const Navbar = () => {
             <NavLink
               to="/collection"
               className={({ isActive }) =>
-                `text-gray-700 font-medium hover:text-blue-600 ${
-                  isActive ? "text-blue-600" : ""
+                `text-gray-700 font-medium hover:text-blue-600 ${isActive ? "text-blue-600" : ""
                 }`
               }
             >
@@ -57,8 +63,7 @@ const Navbar = () => {
             <NavLink
               to="/about"
               className={({ isActive }) =>
-                `text-gray-700 font-medium hover:text-blue-600 ${
-                  isActive ? "text-blue-600" : ""
+                `text-gray-700 font-medium hover:text-blue-600 ${isActive ? "text-blue-600" : ""
                 }`
               }
             >
@@ -72,8 +77,7 @@ const Navbar = () => {
             <NavLink
               to="/contact"
               className={({ isActive }) =>
-                `text-gray-700 font-medium hover:text-blue-600 ${
-                  isActive ? "text-blue-600" : ""
+                `text-gray-700 font-medium hover:text-blue-600 ${isActive ? "text-blue-600" : ""
                 }`
               }
             >
@@ -95,15 +99,15 @@ const Navbar = () => {
           />
 
           <div className="group relative">
-           <Link to="/login"> <img
+            <img onClick={() => token ? null : navigate("/login")}
               className="w-5 cursor-pointer"
               src={assets.profile_icon}
               alt="Profile"
             />
-            </Link>
+
 
             {/* Dropdown Menu */}
-            <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 ease-in-out z-50">
+            {token && <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 ease-in-out z-50">
               <div className="py-1">
                 <NavLink
                   to="/profile"
@@ -118,13 +122,14 @@ const Navbar = () => {
                   Orders
                 </NavLink>
                 <div className="border-t border-gray-200"></div>
-                <button className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
+                <button onClick={logout} className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
                   Logout
                 </button>
               </div>
             </div>
-          </div>
 
+            }
+          </div>
           <Link to="/cart" className="relative">
             <img
               src={assets.cart_icon}
@@ -179,19 +184,16 @@ const Navbar = () => {
             aria-label="Toggle menu"
           >
             <span
-              className={`block w-6 h-0.5 bg-gray-800 transition-transform duration-300 ease-in-out ${
-                visible ? "rotate-45 translate-y-2" : ""
-              }`}
+              className={`block w-6 h-0.5 bg-gray-800 transition-transform duration-300 ease-in-out ${visible ? "rotate-45 translate-y-2" : ""
+                }`}
             ></span>
             <span
-              className={`block w-6 h-0.5 bg-gray-800 transition-opacity duration-300 ease-in-out ${
-                visible ? "opacity-0" : "opacity-100"
-              }`}
+              className={`block w-6 h-0.5 bg-gray-800 transition-opacity duration-300 ease-in-out ${visible ? "opacity-0" : "opacity-100"
+                }`}
             ></span>
             <span
-              className={`block w-6 h-0.5 bg-gray-800 transition-transform duration-300 ease-in-out ${
-                visible ? "-rotate-45 -translate-y-2" : ""
-              }`}
+              className={`block w-6 h-0.5 bg-gray-800 transition-transform duration-300 ease-in-out ${visible ? "-rotate-45 -translate-y-2" : ""
+                }`}
             ></span>
           </button>
         </div>
@@ -199,9 +201,8 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       <div
-        className={`fixed inset-0 bg-white z-10 transition-transform duration-300 ease-in-out ${
-          visible ? "translate-x-0" : "translate-x-full"
-        }`}
+        className={`fixed inset-0 bg-white z-10 transition-transform duration-300 ease-in-out ${visible ? "translate-x-0" : "translate-x-full"
+          }`}
       >
         <div className="flex flex-col h-full pt-20 px-8">
           <ul className="flex flex-col space-y-6">
@@ -209,8 +210,7 @@ const Navbar = () => {
               <NavLink
                 to="/"
                 className={({ isActive }) =>
-                  `text-xl text-gray-700 font-medium ${
-                    isActive ? "text-blue-600" : ""
+                  `text-xl text-gray-700 font-medium ${isActive ? "text-blue-600" : ""
                   }`
                 }
                 onClick={() => setVisible(false)}
@@ -222,8 +222,7 @@ const Navbar = () => {
               <NavLink
                 to="/collection"
                 className={({ isActive }) =>
-                  `text-xl text-gray-700 font-medium ${
-                    isActive ? "text-blue-600" : ""
+                  `text-xl text-gray-700 font-medium ${isActive ? "text-blue-600" : ""
                   }`
                 }
                 onClick={() => setVisible(false)}
@@ -235,8 +234,7 @@ const Navbar = () => {
               <NavLink
                 to="/about"
                 className={({ isActive }) =>
-                  `text-xl text-gray-700 font-medium ${
-                    isActive ? "text-blue-600" : ""
+                  `text-xl text-gray-700 font-medium ${isActive ? "text-blue-600" : ""
                   }`
                 }
                 onClick={() => setVisible(false)}
@@ -248,8 +246,7 @@ const Navbar = () => {
               <NavLink
                 to="/contact"
                 className={({ isActive }) =>
-                  `text-xl text-gray-700 font-medium ${
-                    isActive ? "text-blue-600" : ""
+                  `text-xl text-gray-700 font-medium ${isActive ? "text-blue-600" : ""
                   }`
                 }
                 onClick={() => setVisible(false)}
