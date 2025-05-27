@@ -18,7 +18,10 @@ connectDB();
 connectCloudinary();
 
 // Middlewares
-app.use(cors());
+app.use(cors({
+    origin: 'https://merneccomerce-frontend.onrender.com',
+    credentials: true
+}));
 app.use(express.json());
 
 // API routes
